@@ -1,4 +1,5 @@
 import requests
+import dns.resolver
 import warnings
 
 try:
@@ -136,8 +137,21 @@ class Browser(object):
                 ret.append(API(res))
         return ret
 
+    def defaultAPI(self):
+        answer = dns.resolver.query("default._spaceapis._tcp", "SRV")[0]
+        meta = dns.resolver.query("default._spaceapis._tcp", "TXT")
+        path = "/"
+        for m in meta:
+            for s in m.strings:
+                key, value = s.split('=')
+                if key == 'path':
+                    path = value
+        url = "https://%s:%s%s"%(answer.target, answer.port, path)
+        return API(url)
+
+
     def all(self):
-        return self.directory() + self.discover()
+        return self.directory() + self.discover() + self.defaultAPI()
 
     def _print_error(self, *args):
         self._done()
