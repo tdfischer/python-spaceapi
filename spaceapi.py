@@ -43,7 +43,7 @@ class API(object):
         self._timeout = timeout
 
     def __repr__(self):
-        return "API('%s')"%(self._url)
+        return "API('%s')"%(self._url.geturl())
 
     def __str__(self):
         return repr(self)
