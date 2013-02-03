@@ -7,5 +7,6 @@ setup(name='python-spaceapi',
     author='Trever Fischer',
     author_email='wm161@wm161.net',
     url='http://github.com/tdfischer/python-spaceapi',
-    py_modules=['spaceapi']
+    py_modules=['spaceapi'],
+    requires=['requests', 'dnspython', 'beautifulsoup4'],
 )
